@@ -1,0 +1,11 @@
+asyncpraw
+sqlalchemy
+pandas
+matplotlib
+transformers
+torch
+gensim
+nltk
+bertopic
+Flask
+requests

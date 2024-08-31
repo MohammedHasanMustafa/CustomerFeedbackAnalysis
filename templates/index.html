@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pain.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Feedback Form</h1>
+
+        {% if success %}
+        <div class="alert success">
+            {{ success }}
+        </div>
+        {% endif %}
+        
+        {% if error %}
+        <div class="alert error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('submit') }}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ name }}" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ email }}" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required>{{ message }}</textarea>
+            
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="feedback" {% if category == 'feedback' %}selected{% endif %}>Feedback</option>
+                <option value="complaint" {% if category == 'complaint' %}selected{% endif %}>Complaint</option>
+                <option value="suggestion" {% if category == 'suggestion' %}selected{% endif %}>Suggestion</option>
+            </select>
+            
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if sentiment %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p>Sentiment: {{ sentiment }}</p>
+            <p>Confidence: {{ confidence | round(2) }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
